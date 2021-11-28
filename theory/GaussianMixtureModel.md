@@ -1,3 +1,13 @@
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
 ## 混合高斯模型
 
 ### 1. 高斯分布
@@ -33,3 +43,16 @@ p(x)&=\sum\limits_{m=1}^{M}\frac{c_m}{(2\pi)^{1/2}\sigma_m}\exp[-\frac{1}{2}(\fr
 &=\sum\limits_{m=1}^{M}c_m\mathcal{N}(x;\mu_m,\sigma_m^2)
 \end{aligned}
 $$
+其中$c_m$为每个高斯分布所占权重，则称$x$服从混合高斯分布（Gaussian Mixture Model，GMM）。
+
+推广到多元混合高斯分布，则为：
+$$
+\begin{aligned}
+p(x)&=\frac{1}{(2\pi)^{D/2}|\bold{\Sigma}_m|^{1/2}}\exp[-\frac{1}{2}(\bold{x}-\bold{\mu}_m)^T\bold{\Sigma}_m^{-1}(\bold{x}-\bold{\mu}_m)]\\
+&=\sum\limits_{m=1}^{M}c_m\mathcal{N}(\bold{x};\bold{\mu}_m,\bold{\Sigma}_m)
+\end{aligned}
+$$
+在语音识别中，$x$的维度很高，使用协方差矩阵将引入大量参数。为了减少参数量，可以采用以下优化方式：
+
+- 所有分布共享同一个协方差矩阵
+- 使用对角协方差矩阵
